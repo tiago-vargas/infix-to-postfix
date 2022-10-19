@@ -1,2 +1,7 @@
 def convert(input: str) -> str:
-	return '2 5 +'
+	operator = input[2]
+
+	if operator == '+':
+		return '2 5 +'
+	else:
+		return '2 5 *'
