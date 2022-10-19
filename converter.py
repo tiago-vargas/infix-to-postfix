@@ -3,5 +3,7 @@ def convert(input: str) -> str:
 
 	if operator == '+':
 		return '2 5 +'
-	else:
+	elif operator == '*':
 		return '2 5 *'
+	elif operator == '/':
+		return '2 5 /'

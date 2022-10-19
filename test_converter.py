@@ -15,3 +15,10 @@ def test_single_multiplication():
 	output = convert(input)
 
 	assert output == '2 5 *'
+
+def test_single_divison():
+	input = '2 / 5'
+
+	output = convert(input)
+
+	assert output == '2 5 /'
