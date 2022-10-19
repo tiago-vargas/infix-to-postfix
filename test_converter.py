@@ -46,4 +46,5 @@ def test_two_additions():
 
 	output = convert(input)
 
-	assert output == '2 5 10 + +'
+	assert output == '2 5 + 10 +'
+
