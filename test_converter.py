@@ -39,3 +39,11 @@ def test_single_operation_with_large_numbers():
 	output = convert(input)
 
 	assert output == '720 100 +'
+
+
+def test_two_additions():
+	input = '2 + 5 + 10'
+
+	output = convert(input)
+
+	assert output == '2 5 10 + +'
