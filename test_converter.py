@@ -50,6 +50,14 @@ def test_two_additions():
 	assert output == '2 5 + 10 +'
 
 
+def test_multiple_additions():
+	input = '7 + 35 + 4 + 9 + 1002'
+
+	output = convert(input)
+
+	assert output == '7 35 + 4 + 9 + 1002 +'
+
+
 def test_single_number_with_no_operations():
 	input = '5'
 
