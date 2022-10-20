@@ -42,6 +42,14 @@ def test_three_digit_numbers():
 	assert output == '720 100 +'
 
 
+def test_float_numbers():
+	input = '5.6 / 9.8'
+
+	output = convert(input)
+
+	assert output == '5.6 9.8 /'
+
+
 def test_two_additions():
 	input = '2 + 5 + 10'
 
