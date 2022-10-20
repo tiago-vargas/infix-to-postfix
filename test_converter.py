@@ -1,39 +1,40 @@
 from converter import *
 
 
-def test_single_addition():
-	input = "2 + 5"
+class TestSingleOperations:
+	def test_single_addition(self):
+		input = "2 + 5"
 
-	output = convert(input)
+		output = convert(input)
 
-	assert output == '2 5 +'
-
-
-def test_single_subtraction():
-	input = "2 - 5"
-
-	output = convert(input)
-
-	assert output == '2 5 -'
+		assert output == '2 5 +'
 
 
-def test_single_multiplication():
-	input = '2 * 5'
+	def test_single_subtraction(self):
+		input = "2 - 5"
 
-	output = convert(input)
+		output = convert(input)
 
-	assert output == '2 5 *'
-
-
-def test_single_divison():
-	input = '2 / 5'
-
-	output = convert(input)
-
-	assert output == '2 5 /'
+		assert output == '2 5 -'
 
 
-def test_single_operation_with_large_numbers():
+	def test_single_multiplication(self):
+		input = '2 * 5'
+
+		output = convert(input)
+
+		assert output == '2 5 *'
+
+
+	def test_single_divison(self):
+		input = '2 / 5'
+
+		output = convert(input)
+
+		assert output == '2 5 /'
+
+
+def test_three_digit_numbers():
 	input = '720 + 100'
 
 	output = convert(input)
@@ -48,3 +49,10 @@ def test_two_additions():
 
 	assert output == '2 5 + 10 +'
 
+
+# def test_multiple_additions():
+# 	input = '7 + 35 + 4 + 9 + 1002'
+
+# 	output = convert(input)
+
+# 	assert output == '7 35 + 4 + 9 + 1002 +'
