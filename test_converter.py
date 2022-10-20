@@ -72,3 +72,13 @@ def test_single_number_with_no_operations():
 	output = convert(input)
 
 	assert output == '5'
+
+
+# def test_operator_precedence():
+# 	input = '2 + 5 * 4 + 1'
+
+# 	output = convert(input)
+
+# 	assert output == '2 5 4 * + 1 +'
+
+# 	# 2 5 + 4 * 1 +
