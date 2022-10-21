@@ -1,22 +1,28 @@
+def unload_remaining_symbols(origin, destiny):
+	for symbol in origin[::-1]:
+		destiny.append(symbol)
+
 def convert(input: str) -> str:
-	elements = input.split(' ')
+	tokens = input.split(' ')
 
 	operators = ['+', '-', '*', '/']
-	precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
 
-	result_as_stack = []
+	answer = []
+	symbols = []
 
-	result_as_stack.append(elements[0])
+	answer.append(tokens[0])
 
-	for i in range(len(elements)):
-		if elements[i] in operators:
-			operator = elements[i]
-			number_after_operator = elements[i + 1]
+	for i in range(len(tokens)):
+		if tokens[i] in operators:
+			operator = tokens[i]
+			number_after_operator = tokens[i + 1]
 
-			result_as_stack.append(number_after_operator)
-			result_as_stack.append(operator)
+			answer.append(number_after_operator)
+			answer.append(operator)
 
-	result = ' '.join(result_as_stack)
+	unload_remaining_symbols(symbols, answer)
+
+	result = ' '.join(answer)
 
 	return result
 
