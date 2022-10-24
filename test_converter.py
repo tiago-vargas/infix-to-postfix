@@ -88,3 +88,11 @@ def test_operator_precedence():
 	output = convert(input)
 
 	assert output == '2 5 4 * + 1 +'
+
+
+def test_parentheses_with_no_operators():
+	input = '( 5 )'
+
+	output = convert(input)
+
+	assert output == '5'

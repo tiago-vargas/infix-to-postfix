@@ -2,6 +2,21 @@ def unload_remaining_symbols(origin, destiny):
 	for symbol in origin[::-1]:
 		destiny.append(symbol)
 
+
+def pop_everything_between_parentheses_and_insert_in_other_stack(origin, destination):
+	# S = [( a b c )]
+	# A = [... c b a]
+	origin.pop() # )
+
+	i = len(origin) - 1
+	while origin[i] != '(':
+		popped_element = origin.pop()
+		destination.append(popped_element)
+		i -= 1
+
+	origin.pop() # (
+
+
 def convert(input: str) -> str:
 	elements = input.split(' ')
 
@@ -14,7 +29,7 @@ def convert(input: str) -> str:
 
 	for i in range(len(elements)):
 		current_element = elements[i]
-		is_number = current_element not in operators
+		is_number = current_element not in operators and current_element not in ['(', ')']
 		if is_number and last_symbol in ['*', '/']:
 			continue
 
@@ -45,9 +60,18 @@ def convert(input: str) -> str:
 
 			last_symbol = elements[i]
 
+		if current_element == '(':
+			symbols.append(current_element)
+
+		if current_element == ')':
+			symbols.append(current_element)
+
+			pop_everything_between_parentheses_and_insert_in_other_stack(origin=symbols, destination=answer)
+
 	for symbol in symbols[::-1]:
 		answer.append(symbol)
 
 	result = ' '.join(answer)
 
 	return result
+
