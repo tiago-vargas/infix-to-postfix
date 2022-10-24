@@ -66,6 +66,14 @@ def test_multiple_additions():
 	assert output == '7 35 + 4 + 9 + 1002 +'
 
 
+def test_multiple_additions_and_subtractions():
+	input = '7 + 35 - 4 - 9 + 1002'
+
+	output = convert(input)
+
+	assert output == '7 35 + 4 - 9 - 1002 +'
+
+
 def test_single_number_with_no_operations():
 	input = '5'
 
@@ -74,11 +82,9 @@ def test_single_number_with_no_operations():
 	assert output == '5'
 
 
-# def test_operator_precedence():
-# 	input = '2 + 5 * 4 + 1'
+def test_operator_precedence():
+	input = '2 + 5 * 4 + 1'
 
-# 	output = convert(input)
+	output = convert(input)
 
-# 	assert output == '2 5 4 * + 1 +'
-
-# 	# 2 5 + 4 * 1 +
+	assert output == '2 5 4 * + 1 +'
