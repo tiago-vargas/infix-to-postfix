@@ -4,8 +4,6 @@ def unload_remaining_symbols(origin, destiny):
 
 
 def pop_everything_between_parentheses_and_insert_in_other_stack(origin, destination):
-	# S = [( a b c )]
-	# A = [... c b a]
 	origin.pop() # )
 
 	i = len(origin) - 1
@@ -29,9 +27,21 @@ def convert(input: str) -> str:
 
 	for i in range(len(elements)):
 		current_element = elements[i]
+
+		if current_element == '(':
+			symbols.append(current_element)
+
+		if current_element == ')':
+			symbols.append(current_element)
+
+			pop_everything_between_parentheses_and_insert_in_other_stack(origin=symbols, destination=answer)
+
+
 		is_number = current_element not in operators and current_element not in ['(', ')']
 		if is_number and last_symbol in ['*', '/']:
-			continue
+			if len(elements) > 0:
+				if elements[i - 1] != '(':
+					continue
 
 		if is_number:
 			answer.append(current_element)
@@ -42,31 +52,25 @@ def convert(input: str) -> str:
 			symbols.append(operator)
 
 			if operator in ['*', '/']:
-				next_number = elements[i + 1]
-				answer.append(next_number)
+				if elements[i + 1] != '(':
+					next_number = elements[i + 1]
+					answer.append(next_number)
 
-				symbols.pop()
-				answer.append(operator)
+					symbols.pop()
+					answer.append(operator)
 
 			if operator in ['+', '-']:
 				if last_symbol in ['+', '-']:
-					popped_operator = symbols.pop(-2)
+					if symbols[-2] != '(':
+						popped_operator = symbols.pop(-2)
 
-					answer.append(popped_operator)
+						answer.append(popped_operator)
 				elif len(symbols) > 1 and symbols[-2] in ['+', '-']:
 					popped_operator = symbols.pop(-2)
 
 					answer.append(popped_operator)
 
 			last_symbol = elements[i]
-
-		if current_element == '(':
-			symbols.append(current_element)
-
-		if current_element == ')':
-			symbols.append(current_element)
-
-			pop_everything_between_parentheses_and_insert_in_other_stack(origin=symbols, destination=answer)
 
 	for symbol in symbols[::-1]:
 		answer.append(symbol)

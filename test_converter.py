@@ -96,3 +96,11 @@ def test_parentheses_with_no_operators():
 	output = convert(input)
 
 	assert output == '5'
+
+
+def test_complicated_expression():
+	input = '( 1 + ( 2 + 3 * 4 * 5 ) ) / ( 10 + 3 )'
+
+	output = convert(input)
+
+	assert output == '1 2 3 4 * 5 * + + 10 3 + /'
