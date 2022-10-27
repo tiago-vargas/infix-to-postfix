@@ -1,63 +1,70 @@
-def unload_remaining_symbols(origin, destiny):
+def move_all_elements(origin: list[any], destiny: list[any]):
 	for symbol in origin[::-1]:
 		destiny.append(symbol)
 
 
-def pop_everything_between_parentheses_and_insert_in_other_stack(origin, destination):
-	origin.pop() # )
+def move_elements_delimited_by_parentheses_between_stacks(origin: list[any], destination: list[any]):
+	pop_closing_parenthesis = origin.pop
+	pop_closing_parenthesis()
 
-	i = len(origin) - 1
-	while origin[i] != '(':
-		popped_element = origin.pop()
-		destination.append(popped_element)
-		i -= 1
+	last_index = len(origin) - 1
+	while origin[last_index] != '(':
+		move_last_element(origin, destination)
+		last_index -= 1
 
-	origin.pop() # (
+	pop_opening_parenthesis = origin.pop
+	pop_opening_parenthesis()
+
+
+def move_last_element(origin, destination):
+    popped_element = origin.pop()
+    destination.append(popped_element)
 
 
 def convert(input: str) -> str:
-	elements = input.split(' ')
+	tokens: list[str] = input.split(' ')
 
 	operators = ['+', '-', '*', '/']
+	precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
 
-	answer = []
-	symbols = []
+	answer: list[str] = []
+	symbols: list[str] = []
 
 	last_symbol = ''
 
-	for i in range(len(elements)):
-		current_element = elements[i]
+	must_skip_iteration = False
 
-		if current_element == '(':
-			symbols.append(current_element)
+	for i in range(len(tokens)):
+		if must_skip_iteration:
+			must_skip_iteration = False
+			continue
 
-		if current_element == ')':
-			symbols.append(current_element)
+		current_token = tokens[i]
 
-			pop_everything_between_parentheses_and_insert_in_other_stack(origin=symbols, destination=answer)
+		current_token_is_number = current_token not in operators + ['(', ')']
 
+		if current_token_is_number:
+			answer.append(current_token)
+		else:
+			symbols.append(current_token)
 
-		is_number = current_element not in operators and current_element not in ['(', ')']
-		if is_number and last_symbol in ['*', '/']:
-			if len(elements) > 0:
-				if elements[i - 1] != '(':
-					continue
+		if current_token == ')':
+			move_elements_delimited_by_parentheses_between_stacks(origin=symbols, destination=answer)
 
-		if is_number:
-			answer.append(current_element)
-
-		is_operator = current_element in operators
-		if is_operator:
-			operator = current_element
-			symbols.append(operator)
+		# NOT NICE
+		if current_token in operators:
+			operator = current_token
 
 			if operator in ['*', '/']:
-				if elements[i + 1] != '(':
-					next_number = elements[i + 1]
+				next_token = tokens[i + 1]
+				if next_token != '(':
+					next_number = next_token
 					answer.append(next_number)
 
 					symbols.pop()
 					answer.append(operator)
+
+					must_skip_iteration = True
 
 			if operator in ['+', '-']:
 				if last_symbol in ['+', '-']:
@@ -70,12 +77,11 @@ def convert(input: str) -> str:
 
 					answer.append(popped_operator)
 
-			last_symbol = elements[i]
+			last_operator = last_symbol = tokens[i]
 
-	for symbol in symbols[::-1]:
-		answer.append(symbol)
+
+	move_all_elements(symbols, answer)
 
 	result = ' '.join(answer)
 
 	return result
-
