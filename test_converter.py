@@ -3,7 +3,7 @@ from converter import *
 
 class TestSingleOperations:
 	def test_single_addition(self):
-		input = "2 + 5"
+		input = '2 + 5'
 
 		output = convert(input)
 
@@ -11,7 +11,7 @@ class TestSingleOperations:
 
 
 	def test_single_subtraction(self):
-		input = "2 - 5"
+		input = '2 - 5'
 
 		output = convert(input)
 

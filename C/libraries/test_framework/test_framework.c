@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdbool.h>
 
 #define out /* use `out` simply to indicate that the parameter is intended to serve as a returned value */
