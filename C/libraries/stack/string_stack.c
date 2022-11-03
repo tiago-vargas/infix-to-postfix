@@ -4,9 +4,9 @@
 
 typedef struct
 {
-	float elements[STACK_CAPACITY];
+	char *elements[STACK_CAPACITY];
 	int quantity;
-} FloatStack;
+} StringStack;
 
 enum stack_error_codes
 {
@@ -15,7 +15,7 @@ enum stack_error_codes
 	PUSH_TO_FULL_STACK_ERROR_CODE
 };
 
-void push_float(float number, FloatStack *stack, out float *error_code)
+void push_string(char *string, StringStack *stack, out float *error_code)
 {
 	int index_to_put = stack->quantity;
 
@@ -27,15 +27,15 @@ void push_float(float number, FloatStack *stack, out float *error_code)
 	{
 		*error_code = NO_STACK_ERRORS;
 
-		stack->elements[index_to_put] = number;
+		stack->elements[index_to_put] = string;
 		stack->quantity++;
 	}
 }
 
-float pop_float(FloatStack *stack, out float *error_code)
+char *pop_string(StringStack *stack, out float *error_code)
 {
 	int current_index = stack->quantity - 1;
-	float last_item = stack->elements[current_index];
+	char *last_item = stack->elements[current_index];
 
 	if (stack->quantity == 0)
 	{
