@@ -89,6 +89,15 @@ bool test_popping_from_empty_stack_error(out float *error_code)
 	return *error_code == POP_FROM_EMPTY_STACK_ERROR_CODE;
 }
 
+bool test_pushing_to_full_stack_error(out float *error_code)
+{
+	StringStack stack = { .quantity = STACK_CAPACITY };
+
+	push_string("home", &stack, out error_code);
+
+	return *error_code == PUSH_TO_FULL_STACK_ERROR_CODE;
+}
+
 void run_all_tests()
 {
 	printf("-- STRING STACK TEST RESULTS --\n");
@@ -112,6 +121,8 @@ void run_all_tests()
 
 	run_test(test_popping_from_empty_stack_error,
 	         "popping from empty stack should return error code of POP_FROM_EMPTY_STACK_ERROR_CODE");
+	run_test(test_pushing_to_full_stack_error,
+	         "pushing to full stack should return error code of PUSH_TO_FULL_STACK_ERROR_CODE");
 }
 
 void main()
