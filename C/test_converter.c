@@ -63,7 +63,7 @@ bool test_two_additions()
 
 	char *output = convert(input);
 
-	return strcmp(output, "2 5 + 10") == 0;
+	return strcmp(output, "2 5 + 10 +") == 0;
 }
 
 bool test_multiple_additions()
@@ -118,8 +118,6 @@ bool test_complicated_expression()
 	char *output = convert(input);
 
 	return strcmp(output, "1 2 3 4 * 5 * + + 10 3 + /") ==0;
-
-
 }
 
 void run_all_tests()
@@ -128,17 +126,19 @@ void run_all_tests()
 	run_test(test_single_subtraction, "`2 - 5` should evaluate to `2 5 -`");
 	run_test(test_single_multiplication, "`2 * 5` should evaluate to `2 5 *`");
 	run_test(test_single_division, "`2 / 5` should evaluate to `2 5 /`");
+
 	run_test(test_three_digit_numbers, "`720 + 100` should evaluate to `720 100 +`");
 	run_test(test_float_numbers, "`5.6 / 9.8` should evaluate to `5.6 9.8 /`");
+
 	run_test(test_two_additions, "`2 + 5 + 10` should evaluate to `2 5 + 10 +`");
 	run_test(test_multiple_additions, "`7 + 35 + 4 + 9 + 1002` should evaluate to `7 35 + 4 + 9 + 1002 +`");
 	run_test(test_multiple_additions_and_subtractions, "`7 + 35 - 4 - 9 + 1002` should evaluate to `7 35 + 4 - 9 - 1002 +`");
+
 	run_test(test_single_number_with_no_operations, "`7` should evaluate to `7`");
 	run_test(test_operator_precedence, "`2 + 5 * 4 + 1` should evaluate to `2 5 4 * + 1 +`");
 	run_test(test_parentheses_with_no_operators, "`( 5 )` should evaluate to `5`");
-	run_test(test_complicated_expression, "`( 1 + ( 2 + 3 * 4 * 5 ) ) / ( 10 + 3 )` should evaluate to `1 2 3 4 * 5 * + + 10 3 + /`");
-	
 
+	run_test(test_complicated_expression, "`( 1 + ( 2 + 3 * 4 * 5 ) ) / ( 10 + 3 )` should evaluate to `1 2 3 4 * 5 * + + 10 3 + /`");
 }
 
 int main()
