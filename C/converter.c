@@ -17,12 +17,21 @@ char *convert(char input[])
 	char *elements[SIZE];
 	tokenize(input, out elements);
 
-	char *operator = elements[1];
+	char *first_operator = elements[1];
 	char *first_number = elements[0];
 	char *second_number = elements[2];
 
 	char *result = malloc((sizeof (char)) * 1000);
-	sprintf(result, "%s %s %s", first_number, second_number, operator);
+	sprintf(result, "%s %s %s", first_number, second_number, first_operator);
+
+	/* is length of elements >= 5? */
+	if (elements[4] != NULL)
+	{
+		char *second_operator = elements[3];
+		char *third_number = elements[4];
+
+		sprintf(result, "%s %s %s", result, third_number, second_operator);
+	}
 
 	return result;
 }
