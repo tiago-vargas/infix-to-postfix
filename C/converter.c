@@ -35,7 +35,7 @@ void tokenize(char string[], out char *tokens[])
 char *convert(char input[])
 {
 	char *result = malloc((sizeof (char)) * 1000);
-	float error_code;
+	int error_code;
 
 	StringStack answer = { .quantity = 0 };
 
