@@ -4,6 +4,13 @@
 #define SIZE 200
 #define out /* use `out` simply to indicate that the parameter is intended to serve as a returned value */
 
+bool is_operator(char *string)
+{
+	char c = string[0];
+
+	return c == '+' || c == '-' || c == '*' || c == '/';
+}
+
 void tokenize(char string[], out char *tokens[])
 {
 	tokens[0] = strtok(string, " ");
@@ -20,24 +27,20 @@ char *convert(char input[])
 	tokenize(input, out elements);
 
 	char *first_number = elements[0];
-	char *result = first_number;
+	sprintf(result, "%s", first_number);
 
-	/* is length of elements >= 2? */
-	if (elements[1] != NULL)
+	int i = 0;
+	while (elements[i] != NULL)
 	{
-		char *first_operator = elements[1];
-		char *second_number = elements[2];
+		if (is_operator(elements[i]))
+		{
+			char *operator = elements[i];
+			char *number_after_operator = elements[i + 1];
 
-		sprintf(result, "%s %s %s", first_number, second_number, first_operator);
-	}
+			sprintf(result, "%s %s %s", result, number_after_operator, operator);
+		}
 
-	/* is length of elements >= 5? */
-	if (elements[4] != NULL)
-	{
-		char *second_operator = elements[3];
-		char *third_number = elements[4];
-
-		sprintf(result, "%s %s %s", result, third_number, second_operator);
+		i++;
 	}
 
 	return result;
