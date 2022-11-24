@@ -14,15 +14,22 @@ void tokenize(char string[], out char *tokens[])
 
 char *convert(char input[])
 {
+	char *result = malloc((sizeof (char)) * 1000);
+
 	char *elements[SIZE];
 	tokenize(input, out elements);
 
-	char *first_operator = elements[1];
 	char *first_number = elements[0];
-	char *second_number = elements[2];
+	char *result = first_number;
 
-	char *result = malloc((sizeof (char)) * 1000);
-	sprintf(result, "%s %s %s", first_number, second_number, first_operator);
+	/* is length of elements >= 2? */
+	if (elements[1] != NULL)
+	{
+		char *first_operator = elements[1];
+		char *second_number = elements[2];
+
+		sprintf(result, "%s %s %s", first_number, second_number, first_operator);
+	}
 
 	/* is length of elements >= 5? */
 	if (elements[4] != NULL)
