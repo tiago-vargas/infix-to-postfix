@@ -15,7 +15,7 @@ enum stack_error_codes
 	PUSH_TO_FULL_STACK_ERROR_CODE
 };
 
-void push_string(char *string, StringStack *stack, out float *error_code)
+void push_string(char *string, StringStack *stack, out int *error_code)
 {
 	int index_to_put = stack->quantity;
 
@@ -32,7 +32,7 @@ void push_string(char *string, StringStack *stack, out float *error_code)
 	}
 }
 
-char *pop_string(StringStack *stack, out float *error_code)
+char *pop_string(StringStack *stack, out int *error_code)
 {
 	int current_index = stack->quantity - 1;
 	char *last_item = stack->elements[current_index];
