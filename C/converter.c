@@ -1,8 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "libraries/stack/string_stack.c"
 
 #define SIZE 200
 #define out /* use `out` simply to indicate that the parameter is intended to serve as a returned value */
+
+char *get_strings_joined(StringStack *stack)
+{
+	char *string = malloc((sizeof (char)) * 1000);
+
+	sprintf(string, "%s", stack->elements[0]);
+
+	for (int i = 1; i < stack->quantity; i++)
+		sprintf(string, "%s %s", string, stack->elements[i]);
+
+	return string;
+}
 
 bool is_operator(char *string)
 {
@@ -22,26 +35,32 @@ void tokenize(char string[], out char *tokens[])
 char *convert(char input[])
 {
 	char *result = malloc((sizeof (char)) * 1000);
+	float error_code;
 
-	char *elements[SIZE];
-	tokenize(input, out elements);
+	StringStack answer = { .quantity = 0 };
 
-	char *first_number = elements[0];
-	sprintf(result, "%s", first_number);
+	char *tokens[SIZE];
+	tokenize(input, out tokens);
 
-	int i = 0;
-	while (elements[i] != NULL)
+	char *first_number = tokens[0];
+	push_string(first_number, &answer, &error_code);
+
+	int i = 1;
+	while (tokens[i] != NULL)
 	{
-		if (is_operator(elements[i]))
+		if (is_operator(tokens[i]))
 		{
-			char *operator = elements[i];
-			char *number_after_operator = elements[i + 1];
+			char *operator = tokens[i];
+			char *number_after_operator = tokens[i + 1];
 
-			sprintf(result, "%s %s %s", result, number_after_operator, operator);
+			push_string(number_after_operator, &answer, &error_code);
+			push_string(operator, &answer, &error_code);
 		}
 
 		i++;
 	}
+
+	result = get_strings_joined(&answer);
 
 	return result;
 }
